@@ -1,0 +1,316 @@
+GTGACATGGTACCACA 13762 13777
+...............(((((.((((.(((((.......))))).)))).))))).. 0.919823
+CUUUAAGUUUAGAAUAGACGGUGACAUGGUACCACAUAUAUCACGUCAACGUCUUA
+....................****************....................
+TAGGTCCAGACATGTT 17530 17545
+.....(((((((.......)))))))..((((.((((....)))).))))...... 0.861393
+GUGUAGACUUAUGAAAACUAUAGGUCCAGACAUGUUCCUCGGAACUUGUCGGCGUU
+....................****************....................
+TCACTAAGAAATCTGCTGCTGAGGC 29009 29033
+....................................(((((((((((.....))))))))))).. 0.855851
+ACAACAACAAGGCCAAACUGUCACUAAGAAAUCUGCUGCUGAGGCUUCUAAGAAGCCUCGGCAAA
+....................*************************....................
+GCTTACGGTTTCGTCCGTGTTGCAG 191 215
+................((((((..((((......))))...)))))).................. 0.837380
+UCGUCUAUCUUCUGCAGGCUGCUUACGGUUUCGUCCGUGUUGCAGCCGAUCAUCAGCACAUCUAG
+....................*************************....................
+ATCTCTTGTAGATCTGTTCTCTAAACGAACTTTAAAATCTGTGT 45 88
+...................((((.......))))..(((.......)))...........(((((((((.....))))))))). 0.782119
+AACAAACCAACCAACUUUCGAUCUCUUGUAGAUCUGUUCUCUAAACGAACUUUAAAAUCUGUGUGGCUGUCACUCGGCUGCAUG
+....................********************************************....................
+TGGATTTGTTTATGAG 25393 25408
+......((((((((((........))))))))))...................... 0.775484
+AUUACACAUAAACGAACUUAUGGAUUUGUUUAUGAGAAUCUUCACAAUUGGAACUG
+....................****************....................
+ATGACTATGTCATATTCAC 17857 17875
+................(((((((((...)))))))))...................... 0.775000
+UUCAUCACAGGGCUCAGAAUAUGACUAUGUCAUAUUCACUCAAACCACUGAAACAGCUC
+....................*******************....................
+GGTTTGTTACAGACACACC 12905 12923
+............(((((.(((((.((.......)).))))))))))............. 0.766957
+AGAACUGGAACCACCUUGUAGGUUUGUUACAGACACACCUAAAGGUCCUAAAGUGAAGU
+....................*******************....................
+GTTTTTAAACGGGTTTGCGGTGTAAGTGC 13458 13486
+...................((((....)))).....((((((((((..........))))))))))... 0.746431
+CAGUCAGCUGAUGCACAAUCGUUUUUAAACGGGUUUGCGGUGUAAGUGCAGCCCGUCUUACACCGUGCG
+....................*****************************....................
+CCCGTCTTACACCGTGCGGC 13489 13508
+.....((((((((((..........))))))))))......................... 0.743371
+GGUUUGCGGUGUAAGUGCAGCCCGUCUUACACCGUGCGGCACAGGCACUAGUACUGAUGU
+....................********************....................
+TAGTCTACTCTTGTGCAGAATGAATTCTCGTA 29598 29629
+......................(((((...((((((........................)))))).))))) 0.721264
+GCUUUUCCGUUUACGAUAUAUAGUCUACUCUUGUGCAGAAUGAAUUCUCGUAACUACAUAGCACAAGUAGAU
+....................********************************....................
+GAGTACGAACTTATGTACTCATTCGTTTC 26232 26260
+..................((((((((........))))))))..(((((....)))))........... 0.710877
+CUUUGUAAGCACAAGCUGAUGAGUACGAACUUAUGUACUCAUUCGUUUCGGAAGAGACAGGUACGUUAA
+....................*****************************....................
+GGCCGCAAATTGCACAATTTGC 29174 29195
+....................((..(((((((....)))))))..))..(((....))).... 0.708298
+AGGAACUGAUUACAAACAUUGGCCGCAAAUUGCACAAUUUGCCCCCAGCGCUUCAGCGUUCU
+....................**********************....................
+TCTGAAGAAGTAGTGGAAAATCCTACC 6406 6432
+.................(((((((.....((((.........))))....))))..)))........ 0.703328
+GCGAAGAUCUAAAACCAGUCUCUGAAGAAGUAGUGGAAAAUCCUACCAUACAGAAAGACGUUCUUGA
+....................***************************....................
+ACTACCAACATGAAGA 13675 13690
+..(((((.......)))))..................................... 0.697099
+UAAGAGACACACUUUCUCUAACUACCAACAUGAAGAAACAAUUUAUAAUUUACUUA
+....................****************....................
+GACTCATCTCTATGATGGG 18196 18214
+....................((((((((.....)))))))).................. 0.688670
+UAAGGACAUGACCUAUAGAAGACUCAUCUCUAUGAUGGGUUUUAAAAUGAAUUAUCAAG
+....................*******************....................
+TGGTATTCTTGCTAGT 26314 26329
+..............................(((((.....)))))........... 0.670528
+ACUUCUUUUUCUUGCUUUCGUGGUAUUCUUGCUAGUUACACUAGCCAUCCUUACUG
+....................****************....................
+GTTTCGTCCGGGTGTGACCGA 236 256
+....(((((..(((((((.((......)))))))))(((....)))..)))))........ 0.657732
+CCGAUCAUCAGCACAUCUAGGUUUCGUCCGGGUGUGACCGAAAGGUAAGAUGGAGAGCCUU
+....................*********************....................
+CAGGTACGTTAATAGTTAATAGCGTACTTCT 26269 26299
+..................(...(((((((((........))))))))).)..................... 0.645175
+CUCAUUCGUUUCGGAAGAGACAGGUACGUUAAUAGUUAAUAGCGUACUUCUUUUUCUUGCUUUCGUGGUAU
+....................*******************************....................
+CACTAGCCATCCTTACTGCGCTTCGATTGTGTGCGTACTGCTGCAATATTGTTAACGTGAGT 26332 26393
+(((((((.....(((((.....)))))......))))))).............................................................. 0.643155
+CGUGGUAUUCUUGCUAGUUACACUAGCCAUCCUUACUGCGCUUCGAUUGUGUGCGUACUGCUGCAAUAUUGUUAACGUGAGUCUUGUAAAACCUUCUUUUUA
+....................**************************************************************....................
+AAGGCCAACAACAAC 28982 28996
+......................((((...........)))).............. 0.629316
+UGAGAGCAAAAUGUCUGGUAAAGGCCAACAACAACAAGGCCAAACUGUCACUAAG
+....................***************....................
+TTGAAAAAGGTGACTA 16834 16849
+...........(((.(((((((...))))))))))..(((((.((....))))))) 0.612617
+ACAAAUAGGAGAGUACACCUUUGAAAAAGGUGACUAUGGUGAUGCUGUUGUUUACC
+....................****************....................
+GAGGCCACGCGGAGTACGATCGAG 29733 29756
+..........(((((((((...(..(((.(((.......))).)))..).))))).)))).... 0.599122
+AGAGCCACCACAUUUUCACCGAGGCCACGCGGAGUACGAUCGAGUGUACAGUGAACAAUGCUAG
+....................************************....................
+TATGACCCAAATGTA 12288 12302
+............((((.((((....................)))).))))..... 0.596048
+GAAAAGAUGGCUGAUCAAGCUAUGACCCAAAUGUAUAAACAGGCUAGAUCUGAGG
+....................***************....................
+TGGAAAGGTTATGGCTGTAGTTGTGA 13390 13415
+...((((((....))))))....................((((....))))............... 0.593740
+UCUGUACCGUCUGCGGUAUGUGGAAAGGUUAUGGCUGUAGUUGUGAUCAACUCCGCGAACCCAUGC
+....................**************************....................
+ACAACCTAAATAGAGGTATGGT 12968 12989
+((((((((((..(((.(.....).))).)))))).))))......(((((((...))))))) 0.566432
+AUACUUUAUUAAAGGAUUAAACAACCUAAAUAGAGGUAUGGUACUUGGUAGUUUAGCUGCCA
+....................**********************....................
+AAAATGTCTGATAATGGACCCCA 28270 28292
+...........................(((((..(((...)))..)))))............. 0.562942
+UUCAUCUAAACGAACAAACUAAAAUGUCUGAUAAUGGACCCCAAAAUCAGCGAAAUGCACCCC
+....................***********************....................
+CTACATCACGAACGCTTTCTTATTACAAA 27033 27061
+............(((.((((........((((.((((((..((.....)).))))))))))))))))). 0.543534
+GCCUAAAGAAAUCACUGUUGCUACAUCACGAACGCUUUCUUAUUACAAAUUGGGAGCUUCGCAGCGUGU
+....................*****************************....................
+TTTTGTTATGATGTC 5673 5687
+........(((((((....)))))))..........((.......))........ 0.540617
+CUAGUACAACAGGAGUCACCUUUUGUUAUGAUGUCAGCACCACCUGCUCAGUAUG
+....................***************....................
+GTGTTAAAAATCTGAA 26425 26440
+.................................((((((.....))))))...... 0.536313
+UUCUUUUUACGUUUACUCUCGUGUUAAAAAUCUGAAUUCUUCUAGAGUUCCUGAUC
+....................****************....................
+TAGAAAATGTGGCTT 19624 19638
+.(((((((..(((.((((((..........)))))).)).))))))))....... 0.518399
+UUUUACAAGACUUCAGAGUUUAGAAAAUGUGGCUUUUAAUGUUGUAAAUAAGGGA
+....................***************....................
+CAGTCTGTACCGTCTG 13367 13382
+..(((((.......)))))((.....((((((....))))))))............ 0.513845
+GGGUUUUACACUUAAAAACACAGUCUGUACCGUCUGCGGUAUGUGGAAAGGUUAUG
+....................****************....................
+AACGAACATGAAAATTATT 27386 27404
+...((((.(((((.(((((...((....))..))))).)))))..)))).......... 0.487037
+CAACCAAUGGAGAUUGAUUAAACGAACAUGAAAAUUAUUCUUUUCUUGGCACUGAUAAC
+....................*******************....................
+CGACGACGACTACTAGCGTGCCTTTGTAAGCACAAG 26191 26226
+.....................(....)......((((((((.(....).))))..))))((((((....)))))). 0.485691
+GGAACCAAUUUAUGAUGAACCGACGACGACUACUAGCGUGCCUUUGUAAGCACAAGCUGAUGAGUACGAACUUAUG
+....................************************************....................
+CTTTGAATGTGGCTAAATCTGA 12212 12233
+......((((..........)))).....(((((..(((.(........)..)))..))))) 0.485225
+UCUUAAAAAGUUGAAGAAGUCUUUGAAUGUGGCUAAAUCUGAAUUUGACCGUGAUGCAGCCA
+....................**********************....................
+AGAAAACACACGTCCAACTCAGTTT 293 317
+.............................................(((((.....)))))..... 0.483298
+CCUUGUCCCUGGUUUCAACGAGAAAACACACGUCCAACUCAGUUUGCCUGUUUUACAGGUUCGCG
+....................*************************....................
+AATTGGATGACAAAGATCCA 29285 29304
+.((((....)))).(((......)))(((((...((((...........))))..))))) 0.476069
+GACCUACACAGGUGCCAUCAAAUUGGAUGACAAAGAUCCAAAUUUCAAAGAUCAAGUCAU
+....................********************....................
+TCACATTAATTGGAGAA 20113 20129
+....(((..((((((((......))))))...))..))).((....))......... 0.469922
+ACAAGCUAGUCUUAAUGGAGUCACAUUAAUUGGAGAAGCCGUAAAAACACAGUUCAA
+....................*****************....................
+GTGCTACAACTTCCTCAAGGAACAACATTGCCAAAAGGCTTCTACGCAGA 28744 28793
+(.........((((((..((.((((.(..((((.....((((.......(((....))))))).....))))).)))))).))))))).. 0.464697
+CUGCUAACAAUGCUGCAAUCGUGCUACAACUUCCUCAAGGAACAACAUUGCCAAAAGGCUUCUACGCAGAAGGGAGCAGAGGCGGCAGUC
+....................**************************************************....................
+GGTCTAAACGAACTAA 26465 26480
+......((....((((....))))...))(((((((........)))))))..... 0.464593
+UCUAGAGUUCCUGAUCUUCUGGUCUAAACGAACUAAAUAUUAUAUUAGUUUUUCUG
+....................****************....................
+ATTGTTACGATGGTGGCTG 14881 14899
+...............................((((((.........))).)))...... 0.452815
+AGUUGUUGAUAAGUACUUUGAUUGUUACGAUGGUGGCUGUAUUAAUGCUAACCAAGUCA
+....................*******************....................
+AGGAGGTATGAGCTA 16430 16444
+.((((((((((((((.......)).)).)))).............)))))).... 0.442920
+GAUGUGACUCAACUUUACUUAGGAGGUAUGAGCUAUUAUUGUAAAUCACAUAAAC
+....................***************....................
+TACCCAATAATACTGC 28406 28421
+.......(((..(((((((.................)))))))....)))...... 0.441786
+ACAACGUCGGCCCCAAGGUUUACCCAAUAAUACUGCGUCUUGGUUCACCGCUCUCA
+....................****************....................
+AAAACACTTCTTCTTTGCTCAGGATGG 14750 14776
+.(((((((...((((.......))))...)))))))(((...(((((((....)))))))))).... 0.433888
+GAAGGAAGUUCUGUUGAAUUAAAACACUUCUUCUUUGCUCAGGAUGGUAAUGCUGCUAUCAGCGAUU
+....................***************************....................
+TCTTGCTGTTTTTCA 25547 25561
+..(((((..((((((.((.....))(((.....)))))))))..))).....)). 0.429640
+CUUAUUGUUGGCGUUGCACUUCUUGCUGUUUUUCAGAGCGCUUCCAAAAUCAUAA
+....................***************....................
+CAATGAGTTATGAGGA 14992 15007
+.............(.((((((.(.......)..)))))).)((((.......)))) 0.412940
+GGCUAGACUUUAUUAUGAUUCAAUGAGUUAUGAGGAUCAAGAUGCACUUUUCGCAU
+....................****************....................
+TAGGCTTGATGTGGCT 26784 26799
+....(((((((((.........)))...(.(((((...))))).)))))))..... 0.408829
+UAUCGCAAUGGCUUGUCUUGUAGGCUUGAUGUGGCUCAGCUACUUCAUUGCUUCUU
+....................****************....................
+CAGGTTTTGCTGCATACA 27093 27110
+..((((((((((((..(((....))))))))))))......))).............. 0.407898
+GCAGCGUGUAGCAGGUGACUCAGGUUUUGCUGCAUACAGUCGCUACAGGAUUGGCAAC
+....................******************....................
+TACAGTAAGTGACAACAGATGTTTCATCT 27183 27211
+.........(((((.(((.....)))))))).(((((((((...))))).))))(((....)))..... 0.405509
+UGACAAUAUUGCUUUGCUUGUACAGUAAGUGACAACAGAUGUUUCAUCUCGUUGACUUUCAGGUUACUA
+....................*****************************....................
+GCATTGGCATGGAAGTCACACCTT 29228 29251
+.(((((((.((..(((((.......)))))..(((......))))))))))))((....))... 0.405035
+AGCGUUCUUCGGAAUGUCGCGCAUUGGCAUGGAAGUCACACCUUCGGGAACGUGGUUGACCUAC
+....................************************....................
+TGAAAGAGCCACCAC 29709 29723
+(((.((.((..((..((.(((....))))).))..)))).)))((.(....).)) 0.403041
+GUGUAACAUUAGGGAGGACUUGAAAGAGCCACCACAUUUUCACCGAGGCCACGCG
+....................***************....................
+ACAATATTGCTTTGCT 27165 27180
+..........((((((((((....)))))))..))).(............)..... 0.400123
+AGACCAUUCCAGUAGCAGUGACAAUAUUGCUUUGCUUGUACAGUAAGUGACAACAG
+....................****************....................
+GCAATTCACCATTTCA 27517 27532
+...........(...((((((.(((.....)))...)))))..)..)......... 0.395707
+CUCUUCUGGAACAUACGAGGGCAAUUCACCAUUUCAUCCUCUAGCUGAUAACAAAU
+....................****************....................
+AGTTTTCTAGCAATGTTGCAAA 17017 17038
+.(.(((((.(.......)))))).)......(....)(((...((((((....))))))))) 0.380756
+AACACUCAAUAUCUCAGAUGAGUUUUCUAGCAAUGUUGCAAAUUAUCAAAAGGUUGGUAUGC
+....................**********************....................
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 29871 29902
+...((((....))))..................................... 0.370801
+AGCUUCUUAGGAGAAUGACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+....................********************************....................
+GATGACCAAATTGGCTACTACCG 28513 28535
+......(((((....(((.....)))...)))))((.((.....))))............... 0.366925
+UUAACACCAAUAGCAGUCCAGAUGACCAAAUUGGCUACUACCGAAGAGCUACCAGACGAAUUC
+....................***********************....................
+ATGTTGCTTTTCAAACTGTCAAACCCGGTAATTTTAA 14650 14686
+...(((.(((...........))).)))......((((.......))))........(((((.(......).))))) 0.366828
+AGUAGCUGCACUUACUAACAAUGUUGCUUUUCAAACUGUCAAACCCGGUAAUUUUAACAAAGACUUCUAUGACUUUG
+....................*************************************....................
+GCAGCAGTAGGGGAA 28871 28885
+................(((...(((((...(((.....))))))))....))).. 0.361979
+UUCAAGAAAUUCAACUCCAGGCAGCAGUAGGGGAACUUCUCCUGCUAGAAUGGCU
+....................***************....................
+TCTTGCTCGCAAACATA 15350 15366
+(((((...(....)....))))).(((.((.(((((.....))))))))))...... 0.357157
+AGAAUUAUGGCCUCACUUGUUCUUGCUCGCAAACAUACAACGUGUUGUAGCUUGUCA
+....................*****************....................
+GGTAAGATGGAGAGCCTTG 259 277
+(((((((((...(((...(((((..........))))))))))))).....)))).... 0.356248
+UCGUCCGGGUGUGACCGAAAGGUAAGAUGGAGAGCCUUGUCCCUGGUUUCAACGAGAAA
+....................*******************....................
+TGTTAAAAACTGTTTA 15241 15256
+.......((((...(((.(((..((((.....))))..))).)))....))))... 0.353317
+CUAUGGUGGUUGGCACAACAUGUUAAAAACUGUUUAUAGUGAUGUAGAAAACCCUC
+....................****************....................
+ATTCCCACCAACAGAGCCTAAAAAGGACAAAAAGAA 29358 29393
+....(((.......))).................(((((...................)))))............. 0.338297
+CAUAUUGACGCAUACAAAACAUUCCCACCAACAGAGCCUAAAAAGGACAAAAAGAAGAAGGCUGAUGAAACUCAAG
+....................************************************....................
+TAATTGACTTCTATTTGTGCTT 27771 27792
+((((((((........)))(.(((........))).).(((....)))..)))))....... 0.323393
+CAGAAUGAUUGAACUUUCAUUAAUUGACUUCUAUUUGUGCUUUUUAGCCUUUCUGCUAUUCC
+....................**********************....................
+AGTTAACTTTAATCTCACATAGCAATCTTTAATCA 29652 29686
+(((((.((....))..))))).....(((((((..(((((.(...........).)))))....))))))).... 0.322036
+UACAUAGCACAAGUAGAUGUAGUUAACUUUAAUCUCACAUAGCAAUCUUUAAUCAGUGUGUAACAUUAGGGAGGA
+....................***********************************....................
+TCTGTTTGGAACTTTAA 26497 26513
+((............))....(((((((((..((........))))).)))))).... 0.318954
+CUAAAUAUUAUAUUAGUUUUUCUGUUUGGAACUUUAAUUUUAGCCAUGGCAGAUUCC
+....................*****************....................
+ACCACACAAGGCAGATGGGCTAT 29543 29565
+...((((((......(((............)))..)))))).......((....))....... 0.298053
+UCAGGCCUAAACUCAUGCAGACCACACAAGGCAGAUGGGCUAUAUAAACGUUUUCGCUUUUCC
+....................***********************....................
+TAGCCTTTCTGCTATTCCTTGTT 27795 27817
+....................((((......))))..........((((.......)))).... 0.292928
+UGACUUCUAUUUGUGCUUUUUAGCCUUUCUGCUAUUCCUUGUUUUAAUUAUGCUUAUUAUCUU
+....................***********************....................
+TCTGTAGTACTATGAC 15124 15139
+(((((....))))).......((((....((((.....)))))))).......... 0.290569
+CACCGUAGCUGGUGUCUCUAUCUGUAGUACUAUGACCAAUAGACAGUUUCAUCAAA
+....................****************....................
+GTGTAACATTAGGGAGGA 29689 29706
+...........(((((..((.....)))))))((.((.(((....))))).))..... 0.286360
+CAUAGCAAUCUUUAAUCAGUGUGUAACAUUAGGGAGGACUUGAAAGAGCCACCACAUU
+....................******************....................
+AGGGAGGTAGGTTTGT 12791 12806
+((((((((....(........)...))))))))(((....)))............. 0.276181
+AGCUUACUACAACACAACAAAGGGAGGUAGGUUUGUACUUGCACUGUUAUCCGAUU
+....................****************....................
+CCTATATGGAAGAGCCCTAATGTGTAAAATTAATTTTAGTAGTGCTATCCCCATGTGATTTTAATAGCTTC 29786 29856
+..........((((.(((((.((......................((((....))))))))..))).)))).................((((....))))........... 0.273995
+AACAAUGCUAGGGAGAGCUGCCUAUAUGGAAGAGCCCUAAUGUGUAAAAUUAAUUUUAGUAGUGCUAUCCCCAUGUGAUUUUAAUAGCUUCUUAGGAGAAUGACAAAAAAA
+....................***********************************************************************....................
+TTAAGTATGCCATTAGTGCAAAGAATAG 15070 15097
+..........(....)..((((..((((.......)))).))))...(....).(((((....))))) 0.265597
+UACUAUAACUCAAAUGAAUCUUAAGUAUGCCAUUAGUGCAAAGAAUAGAGCUCGCACCGUAGCUGGUG
+....................****************************....................
+CATGTGGTAGTGTTGGTTTTAA 10484 10505
+(((......)))....((.((((......((((((....)))))).....))))))...... 0.262959
+GGGUUCAUUCCUUAAUGGUUCAUGUGGUAGUGUUGGUUUUAACAUAGAUUAUGACUGUGUCU
+....................**********************....................
+ATGGTGATTCTGAAG 12173 12187
+((((.(((((....))))).))...........((.....)).)).......... 0.247870
+UUAUGAGCAGGCUGUUGCUAAUGGUGAUUCUGAAGUUGUUCUUAAAAAGUUGAAG
+....................***************....................
+CAACTGAGGGAGCCT 28673 28687
+....(((.((.....((((..))))....))))).((.......))......... 0.236640
+AGACGGCAUCAUAUGGGUUGCAACUGAGGGAGCCUUGAAUACACCAAAAGAUCAC
+....................***************....................
+ATGACTTTGCTGTGTCTAA 14698 14716
+..............(((.((..(((........)))..)))))((((((....)))))) 0.235311
+UAAUUUUAACAAAGACUUCUAUGACUUUGCUGUGUCUAAGGGUUUCUUUAAGGAAGGAA
+....................*******************....................
+CTCGCATAGTGTATAC 17140 17155
+...................((..((((((.(((.......))).)).)))).)).. 0.230193
+AGCUCUCUACUACCCUUCUGCUCGCAUAGUGUAUACAGCUUGCUCUCAUGCCGCUG
+....................****************....................
+CTGCTTGGAGAAAAGCTGT 17746 17764
+......................((((......))))....................... 0.192645
+AGAAUUCCUUACACGUAACCCUGCUUGGAGAAAAGCUGUCUUUAUUUCACCUUAUAAUU
+....................*******************....................
+TTACTTGTACTTGAC 9588 9602
+....(((.........((..............)))))...(((........))). 0.142360
+CCUGGUGUUUAUUCUGUUAUUUACUUGUACUUGACAUUUUAUCUUACUAAUGAUG
+....................***************....................
