@@ -52,7 +52,7 @@ def get_sequences(alignment_file):
                     sequences += [Seq(seq=cur_seq, name=cur_tag, is_reference=is_reference)]
                 cur_seq = ''
             # The following tag processing handles a variety of alignment tag formats
-            cur_tag = cur_line.strip('\n').strip('>').split(' ')[0].split('|')[-1] 
+            cur_tag = cur_line.strip('\n').strip('>').split(' ')[0]
         else:
             cur_seq += cur_line.strip('\n').upper()
     if ('Query' not in cur_tag) and \
@@ -324,7 +324,7 @@ def convert_intervals_refseq(intervals, full_ref_seq):
     return ref_intervals
 
 # Write all RNAz windows and loci
-def get_rnaz_windows(rnaz_windows_file, aln_file):
+def get_rnaz_windows(rnaz_windows_file, aln_file, p_val_cutoff=0.9):
     f = open(rnaz_windows_file)
     rnaz_windows = f.readlines()
     f.close()
@@ -354,7 +354,8 @@ def get_rnaz_windows(rnaz_windows_file, aln_file):
             if z_score_attempt == '': # this is when z-score is positive
                 z_score_attempt = line.split(' ')[7].strip(',')
             z_score = float(z_score_attempt)
-            rnaz_windows_dict[(int_start, int_end)] = (seq, secstruct, z_score, p_val)
+            if p_val >= p_val_cutoff:
+                rnaz_windows_dict[(int_start, int_end)] = (seq, secstruct, z_score, p_val)
         ii += 1
     
     return rnaz_windows_dict

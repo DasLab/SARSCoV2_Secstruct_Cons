@@ -3,7 +3,7 @@
 
 
 from sarscov2_util import *
-
+import os
 
 
 aln_file_1 = 'alignments/RR_nCov_alignment2_021120_muscle.fa'
@@ -74,8 +74,6 @@ def write_unpaired_betacov(per_position_unpaired, ref_seq):
     for x in top_overlaps:
         f.write('%d,%d,%f,%f,%s\n' % (int(x[0]), int(x[1]-1), float(x[2]), float(x[3]), ref_seq[(int(x[0])-1):int(x[1]-1)]))
     f.close()
-    print(len(unpaired_intervals))
-    print(len(overlap_intervals))
 
 
 def write_unpaired_sarscov2(per_position_unpaired, ref_seq):
@@ -91,35 +89,90 @@ def write_unpaired_sarscov2(per_position_unpaired, ref_seq):
     for ii, x in enumerate(top_overlaps):
         f.write('SARS-CoV-2-conserved-unstructured-%d,%d-%d,%f,%f,%s\n' % (ii+1,int(x[0]), int(x[1]-1), float(x[2]), float(x[3]), ref_seq[(int(x[0])-1):int(x[1]-1)]))
     f.close()
-    print(len(unpaired_intervals))
-    print(len(overlap_intervals))
 
-
-def write_unpaired_intervals(per_position_unpaired):
-    unpaired_intervals = get_unpaired_intervals(per_position_unpaired, unpaired_cutoff=0.6, min_size=15)
-    print(len(unpaired_intervals))
+def write_unpaired_intervals(unpaired_intervals):
     # Print intervals in rank order of MCC secondary structure predictions
     f = open('results/unpaired_intervals_0.6_15.bed', 'w')
     for interval in unpaired_intervals:
         f.write('NC_045512.2\t%d\t%d\tint\t0\t.\n' % (interval[0], interval[1]))
     f.close()
 
+def write_rnaplfold_intervals(intervals):
+    f = open('results/rnaplfold_intervals.csv', 'w')
+    for interval in intervals:
+        f.write("%d, %d\n" % (interval[0], interval[1]))
+    f.close()
+
+def get_rnaplfold_intervals(RNAplfold_filename, int_size=15, cutoff=0.25):
+    f = open(RNAplfold_filename)
+    rnaplfold_lines = f.readlines()
+    f.close()
+
+    rnaplfold_intervals = []
+    for rnaplfold_line in rnaplfold_lines[(int_size+2):]:
+        rnaplfold_items = rnaplfold_line.split('\t')
+        int_start = int(rnaplfold_items[0])
+        if float(rnaplfold_items[-1]) > cutoff:
+            last_int = (-1, -1)
+            if len(rnaplfold_intervals) > 0:
+                last_int = rnaplfold_intervals[-1]
+            # Continuation of last interval or not?
+            if int_start < last_int[1]:
+                rnaplfold_intervals = rnaplfold_intervals[:-1]
+                rnaplfold_intervals += [(last_int[0], int_start + int_size)]
+            else:
+                rnaplfold_intervals += [(int_start, int_start+int_size)]
+    print([x[0] for x in rnaplfold_intervals])
+
+    return rnaplfold_intervals
+
+def get_rnaplfold_per_position_unpaired(RNAplfold_filename):
+    f = open(RNAplfold_filename)
+    rnaplfold_lines = f.readlines()
+    f.close()
+
+    rnaplfold_unpaired_probabilities = []
+    for rnaplfold_line in rnaplfold_lines[2:]:
+        rnaplfold_unpaired_probabilities += [float(rnaplfold_line.split('\t')[1])]
+
+    return rnaplfold_unpaired_probabilities
+
 if __name__ == "__main__":
     print("Getting and recording per-position unpaired")
     sequences = get_sequences(aln_file_1)
     (full_ref_seq, ref_seq) = get_ref_seq(sequences)
-    per_position_unpaired = get_per_position_unpaired(ref_seq)
 
+    probs_unpaired_file = "results/probs_unpaired.txt"
+    per_position_unpaired = []
+    if os.path.isfile(probs_unpaired_file):
+        f = open(probs_unpaired_file)
+        per_position_unpaired = [float(x) for x in f.readlines()]
+        f.close()
+    else: 
+        per_position_unpaired = get_per_position_unpaired(ref_seq)
+        f = open(probs_unpaired_file, 'w')
+        for cur_val in per_position_unpaired:
+            f.write("%f\n" % cur_val)
+        f.close()
 
-    f = open("results/probs_unpaired.txt", 'w')
-    for cur_val in per_position_unpaired:
-        f.write("%f\n" % cur_val)
-    f.close()
-
-
+    unpaired_intervals = get_unpaired_intervals(per_position_unpaired, unpaired_cutoff=0.6, min_size=15)
+    # rnaplfold_intervals = get_rnaplfold_intervals("RNAplfold/SARSCOV2_lunp")
+    rnaplfold_unpaired_probabilities = get_rnaplfold_per_position_unpaired("RNAplfold/SARSCOV2_lunp")
+    rnaplfold_intervals = get_unpaired_intervals(rnaplfold_unpaired_probabilities, unpaired_cutoff=0.6, min_size=15)
+    overlap_intervals = get_interval_overlap_size(unpaired_intervals, rnaplfold_intervals, min_size=5)
+    print("%d/%d intervals overlap with RNAplfold" % (len(overlap_intervals), len(unpaired_intervals)))
+    num_overlaps = get_num_overlaps_rnd_trials_size(unpaired_intervals, rnaplfold_intervals, len(ref_seq), min_size=5)
+    print("P-value for overlap: %.2E\n" % (np.sum(np.array(num_overlaps) >= len(overlap_intervals))/len(num_overlaps)))
+    overlap_intervals = get_interval_overlap_size(rnaplfold_intervals, unpaired_intervals, min_size=5)
+    print("%d/%d intervals overlap with contrafold2" % (len(overlap_intervals), len(rnaplfold_intervals)))
+    num_overlaps = get_num_overlaps_rnd_trials_size(rnaplfold_intervals, unpaired_intervals, len(ref_seq), min_size=5)
+    print("P-value for overlap: %.2E\n" % (np.sum(np.array(num_overlaps) >= len(overlap_intervals))/len(num_overlaps)))
+    
+    print("Recording RNAplfold intervals that overlap with Contrafold 2.0 intervals")
+    write_rnaplfold_intervals(overlap_intervals)
     print("Recording unpaired intervals conserved in SARS-related sequences")
     write_unpaired_betacov(per_position_unpaired, ref_seq)
     print("Recording unpaired intervals conserved in SARS-CoV-2 sequences")
     write_unpaired_sarscov2(per_position_unpaired, ref_seq)
     print("Recording unpaired intervals")
-    write_unpaired_intervals(per_position_unpaired)
+    write_unpaired_intervals(unpaired_intervals)

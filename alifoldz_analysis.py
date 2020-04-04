@@ -9,7 +9,7 @@ from scipy import stats
 
 
 
-def make_stockholm_alignment(window_start, window_end, alignment_file):
+def make_stockholm_alignment(window_start, window_end, sequences, alignment_file):
     # Make fasta file alignment with desired range
     f = open('alignments/tmp_alignment.fa', 'w')
     
@@ -30,7 +30,7 @@ def make_stockholm_alignment(window_start, window_end, alignment_file):
 
 
 
-def make_fa_alignment(window_start, window_end, alignment_file):
+def make_fa_alignment(window_start, window_end, sequences, alignment_file):
     # Make fasta file alignment with desired range
     f = open(alignment_file, 'w')
     
@@ -45,7 +45,7 @@ def make_fa_alignment(window_start, window_end, alignment_file):
 
 
 if __name__=='__main__':
-    sequences = get_sequences('alignments/RR_nCov_alignment2_021120_muscle.fa')
+    sequences = get_sequences('alignments/betacorona-genome-ref-oc43.fa')
     (full_ref_seq, ref_seq) = get_ref_seq(sequences)
     
     # Make windowed alignments for use with rscape
@@ -54,12 +54,14 @@ if __name__=='__main__':
     while ii < len(full_ref_seq):
         window_start = ii
         window_end = ii + 120
-        alignment_file = 'rscape/windows/alignment_' + str(window_id) + '.sto'
-        make_stockholm_alignment(window_start, window_end, alignment_file)
+        alignment_file = 'rscape/windows_betacov/alignment_' + str(window_id) + '.sto'
+        make_stockholm_alignment(window_start, window_end, sequences, alignment_file)
         ii += 40
         window_id += 1
     
-    
+    sequences = get_sequences('alignments/RR_nCov_alignment2_021120_muscle.fa')
+    (full_ref_seq, ref_seq) = get_ref_seq(sequences)
+
     # Make windowed alignments for use with alifoldz
     ii = 0
     window_id = 0
@@ -68,7 +70,7 @@ if __name__=='__main__':
         window_start = ii
         window_end = ii + 120
         alignment_file = 'alifoldz/windows/alignment_' + str(window_id) + '.fa'
-        make_fa_alignment(window_start, window_end, alignment_file)
+        make_fa_alignment(window_start, window_end, sequences, alignment_file)
         window_id_dict[window_id] = (window_start, window_end)
         ii += 40
         window_id += 1
