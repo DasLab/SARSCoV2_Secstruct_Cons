@@ -249,7 +249,7 @@ def get_interval_overlap(intervals1, intervals2):
 
 # Get all intervals in intervals1 that overlap with some interval in intervals2
 # by at least size nucleotides
-def get_interval_overlap_size(intervals1, intervals2, min_size=1):
+def get_interval_overlap_size(intervals1, intervals2, min_size=1, full_int=False):
     overlap_intervals = []
     
     for interval1 in intervals1:
@@ -269,14 +269,18 @@ def get_interval_overlap_size(intervals1, intervals2, min_size=1):
             #if overlap_size > min_size:
             #    print(interval1)
             #    print(interval2)
+        if full_int:
+            min_size = interval1[1] - interval1[0]
         if max_overlap_size >= min_size:
             overlap_intervals += [interval1]
     return overlap_intervals
 
-def get_num_overlaps_rnd_trials(intervals_list, intervals, refseq_len, num_trials=10000):
+def get_num_overlaps_rnd_trials(intervals_list, intervals, refseq_len, num_trials=10000, print_freq=500):
     lengths = [(interval[1] - interval[0]) for interval in intervals_list]
     num_overlaps = []
     for ii in range(num_trials):
+        if ii % print_freq == 0:
+            print("Trial: %d of %d" % (ii, num_trials))
         num_overlap = 0
         for length in lengths:
             start_idx = randint(0, refseq_len - length)
@@ -297,13 +301,17 @@ def get_perc_overlaps_rnd_trials(intervals_list, intervals, refseq_len, num_tria
         perc_overlap += [num_overlap/num_trials]
     return perc_overlap
 
-def get_num_overlaps_rnd_trials_size(regions_list, intervals, refseq_len, num_trials=10000, min_size=1):
+def get_num_overlaps_rnd_trials_size(regions_list, intervals, refseq_len, num_trials=10000, min_size=1, full_int=False, print_freq=100):
     lengths = [(region[1] - region[0]) for region in regions_list]
     num_overlaps = []
     for ii in range(num_trials):
         num_overlap = 0
+        if ii % print_freq == 0:
+            print("Trial %d of %d" % (ii, num_trials))
         for length in lengths:
             start_idx = randint(0, refseq_len - length)
+            if full_int:
+                min_size = length
             if get_interval_overlap_size([(start_idx, start_idx + length)], intervals, min_size=min_size):
                 num_overlap += 1
         num_overlaps += [num_overlap]

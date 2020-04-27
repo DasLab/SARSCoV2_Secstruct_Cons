@@ -9,7 +9,7 @@ from matplotlib import pyplot as plt
 
 aln_file_1 = 'alignments/RR_nCov_alignment2_021120_muscle.fa'
 rnaz_results_1 = 'rnaz_data/results_sorted_RR_nCov_alignment2_021120_muscle.dat'
-
+scanfold_file = 'scanfold_data/tables1.csv'
 
 def get_rnaz_intervals(rnaz_filename):
     f = open(rnaz_filename)
@@ -131,6 +131,39 @@ def write_rnaz_windows():
     
     return rnaz_windows_dict
 
+def get_rnaz_scanfold_overlap(rnaz_windows_dict, ref_seq, p_val_cutoff=0.05):
+    f = open(scanfold_file)
+    scanfold_lines = f.readlines()[1:]
+    f.close()
+
+    scanfold_intervals = []
+    for scanfold_line in scanfold_lines:
+        scanfold_items = scanfold_line.replace('\ufeff', '').split(',')
+        int_ends = (int(scanfold_items[0]), int(scanfold_items[1]))
+        p_val = float(scanfold_items[5])
+        if p_val < p_val_cutoff:
+            scanfold_intervals += [int_ends]
+
+    rnaz_intervals = []
+    for rnaz_key in rnaz_windows_dict.keys():
+        rnaz_window = rnaz_windows_dict[rnaz_key]
+        if rnaz_window[3] > 0.9:
+            rnaz_intervals += [rnaz_key]
+    
+    print("Number of scanfold intervals: %d" % len(scanfold_intervals))
+    print("Number of rnaz windows: %d" % len(rnaz_intervals))
+
+    overlap_intervals = get_interval_overlap_size(rnaz_intervals, scanfold_intervals, full_int=True)
+    print("Number of overlapping intervals: %d/%d" % (len(overlap_intervals), len(rnaz_intervals)))
+    num_overlaps = get_num_overlaps_rnd_trials_size(rnaz_intervals, scanfold_intervals, len(ref_seq), full_int=True)
+    print("P-value for overlap: %f\n" % (np.sum(np.array(num_overlaps) >= len(overlap_intervals))/len(num_overlaps)))
+    
+    overlap_intervals = get_interval_overlap(scanfold_intervals, rnaz_intervals)
+    print("Number of overlapping intervals: %d/%d" % (len(overlap_intervals), len(scanfold_intervals)))
+    num_overlaps = get_num_overlaps_rnd_trials(scanfold_intervals, rnaz_intervals, len(ref_seq))
+    print("P-value for overlap: %f\n" % (np.sum(np.array(num_overlaps) >= len(overlap_intervals))/len(num_overlaps)))
+
+
 # Write all SARS-CoV-2 overlapping structured intervals to a file
 def write_structured_conserved_regions(rnaz_windows_dict):
     sarscov2_intervals = get_ref_intervals_from_file("alignments/gisaid_mafft_ncbi.fa", cutoff=0.97, MIN_SIZE=15)
@@ -210,22 +243,26 @@ def get_percent_structured(ref_seq):
     return total_structured/len(ref_seq)
 
 if __name__ == '__main__':
+    sequences = get_sequences(aln_file_1)
+    (full_ref_seq, ref_seq) = get_ref_seq(sequences)
+
     print("Writing RNAz loci and windows to .csv files\n")
     write_rnaz_windows_loci()
     rnaz_windows_dict = write_rnaz_windows()
     
-    print("Recording structured regions conserved in SARS-CoV-2\n")
-    write_structured_conserved_regions(rnaz_windows_dict)
+    #print("Recording structured regions conserved in SARS-CoV-2\n")
+    #write_structured_conserved_regions(rnaz_windows_dict)
     
-    print("Recording structured regions conserved in SARS-CoV-2\n")
-    sequences = get_sequences(aln_file_1)
-    (full_ref_seq, ref_seq) = get_ref_seq(sequences)
-   
-    print("Recording structured regions conserved in SARS-related viruses\n")
-    write_structured_sarsr_conserved_regions(ref_seq)
+    print("Getting overlaps between RNAz intervals and ScanFold data\n")
+    get_rnaz_scanfold_overlap(rnaz_windows_dict, ref_seq)
 
-    print("Testing overlaps between RNAz intervals, known structures, and conserved intervals")
-    test_rnaz_interval_overlaps_pvals(ref_seq)
-    
-    perc_structured = get_percent_structured(ref_seq)
-    print("Percent of genome in an RNAz structured window: %f\n" % perc_structured)
+    #print("Recording structured regions conserved in SARS-CoV-2\n")
+   #
+    #print("Recording structured regions conserved in SARS-related viruses\n")
+    #write_structured_sarsr_conserved_regions(ref_seq)
+#
+    #print("Testing overlaps between RNAz intervals, known structures, and conserved intervals")
+    #test_rnaz_interval_overlaps_pvals(ref_seq)
+    #
+    #perc_structured = get_percent_structured(ref_seq)
+    #print("Percent of genome in an RNAz structured window: %f\n" % perc_structured)

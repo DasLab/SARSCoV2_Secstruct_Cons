@@ -18,6 +18,8 @@ The `alifoldz` folder includes output from alifoldz analysis.
 
 The `rscape` folder includes output from rscape analysis.
 
+The `scanfold_data` folder includes ScanFold output from Andrews, et al. bioRXiv 2020
+
 The `example_results` folder includes example output files from the top-level python scripts, which should be reproduced by running the scripts.
 
 ## Prerequisites
