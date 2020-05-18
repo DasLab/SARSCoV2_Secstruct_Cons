@@ -4,12 +4,28 @@
 
 from sarscov2_util import *
 import os
+import argparse
+
+parser = argparse.ArgumentParser(description='Get conserved, unpaired stretches using Contrafold 2.0 base-pairing probabilities and RNAplfold. Output file results/unpaired_betacov_overlaps.csv has intervals that are unpaired at the specified thresholds and conserved in SARS-related sequences. Output file results/sarscov2_conserved_unstructured.csv has intervals that are unpaired and conserved in SARS-CoV-2 sequences. Output file results/unpaired_intervals.bed has all unpaired intervals at the specified threshold regardless of conservation. Output file results/rnaplfold_intervals.csv has unpaired intervals that overlap between Contrafold 2.0 and RNAplfold.')
+parser.add_argument('--sarsr_aln_file', default='alignments/RR_nCov_alignment2_021120_muscle.fa', help="Alignment file for SARS-related sequences in fasta format")
+parser.add_argument('--sarscov2_aln_file', default='alignments/gisaid_mafft_ncbi.fa', help="Alignment file for SARS-CoV-2 sequences in fasta format")
+parser.add_argument('--min_len', type=int, default=15, help="Minimum length of reported conserved unpaired intervals")
+parser.add_argument('--sarsr_conservation', type=float, default=0.9, help="Required conservation level for intervals in SARS-related sequences (float from 0 to 1)")
+parser.add_argument('--sarscov2_conservation', type=float, default=0.97, help="Required conservation level for intervals in SARS-CoV-2 sequences (float from 0 to 1)")
+parser.add_argument('--min_unpaired_prob', type=float, default=0.6, help="Minimum probability unpaired for the position to be classified as unstructured; all positions in unpaired intervals must have unpaired probabilities above this threshold.")
+parser.add_argument('--do_significance_tests', dest='do_significance_tests', action='store_true', help="If specified, will do significance tests for the overlap of SARS-related conserved intervals and SARS-CoV-2 conserved intervals")
+
+args = parser.parse_args()
+
+aln_file_1 = args.sarsr_aln_file
+sarscov2_aln_file = args.sarscov2_aln_file
+MIN_SIZE = args.min_len
+SARSR_CONSERVATION = args.sarsr_conservation
+SARSCOV2_CONSERVATION = args.sarscov2_conservation
+MIN_UNPAIRED = args.min_unpaired_prob
+do_significance_tests = args.do_significance_tests
 
 
-aln_file_1 = 'alignments/RR_nCov_alignment2_021120_muscle.fa'
-
-
-# Gets secondary structure IN THE REVERSE COMPLEMENT
 def get_unpaired_probs(int_start, int_end, ref_seq):
     sequence = ref_seq[int_start:int_end]
     bp_matrix = bpps(sequence, package='contrafold_2')
@@ -62,9 +78,9 @@ def get_unpaired_intervals(probs_unpaired, unpaired_cutoff=0.9, min_size=15):
 
 
 def write_unpaired_betacov(per_position_unpaired, ref_seq):
-    betacov_intervals = get_ref_intervals_from_file(aln_file_1, cutoff=0.9, MIN_SIZE=15)
-    unpaired_intervals = get_unpaired_intervals(per_position_unpaired, unpaired_cutoff=0.5, min_size=15)
-    overlap_intervals = get_interval_overlap_size(unpaired_intervals, betacov_intervals, min_size=15)
+    betacov_intervals = get_ref_intervals_from_file(aln_file_1, cutoff=SARSR_CONSERVATION, MIN_SIZE=MIN_SIZE)
+    unpaired_intervals = get_unpaired_intervals(per_position_unpaired, unpaired_cutoff=MIN_UNPAIRED, min_size=MIN_SIZE)
+    overlap_intervals = get_interval_overlap_size(unpaired_intervals, betacov_intervals, min_size=MIN_SIZE)
 
     overlap_intervals = np.array(overlap_intervals)
     p_vals = np.array([x[3] for x in overlap_intervals])
@@ -77,9 +93,9 @@ def write_unpaired_betacov(per_position_unpaired, ref_seq):
 
 
 def write_unpaired_sarscov2(per_position_unpaired, ref_seq):
-    sarscov2_intervals = get_ref_intervals_from_file("alignments/gisaid_mafft_ncbi.fa", cutoff=0.97, MIN_SIZE=15)
-    unpaired_intervals = get_unpaired_intervals(per_position_unpaired, unpaired_cutoff=0.6, min_size=15)
-    overlap_intervals = get_interval_overlap_size(unpaired_intervals, sarscov2_intervals, min_size=15)
+    sarscov2_intervals = get_ref_intervals_from_file(sarscov2_aln_file, cutoff=SARSCOV2_CONSERVATION, MIN_SIZE=MIN_SIZE)
+    unpaired_intervals = get_unpaired_intervals(per_position_unpaired, unpaired_cutoff=MIN_UNPAIRED, min_size=MIN_SIZE)
+    overlap_intervals = get_interval_overlap_size(unpaired_intervals, sarscov2_intervals, min_size=MIN_SIZE)
 
     overlap_intervals = np.array(overlap_intervals)
     p_vals = np.array([x[3] for x in overlap_intervals])
@@ -92,7 +108,7 @@ def write_unpaired_sarscov2(per_position_unpaired, ref_seq):
 
 def write_unpaired_intervals(unpaired_intervals):
     # Print intervals in rank order of MCC secondary structure predictions
-    f = open('results/unpaired_intervals_0.6_15.bed', 'w')
+    f = open('results/unpaired_intervals.bed', 'w')
     for interval in unpaired_intervals:
         f.write('NC_045512.2\t%d\t%d\tint\t0\t.\n' % (interval[0], interval[1]))
     f.close()
@@ -155,18 +171,19 @@ if __name__ == "__main__":
             f.write("%f\n" % cur_val)
         f.close()
 
-    unpaired_intervals = get_unpaired_intervals(per_position_unpaired, unpaired_cutoff=0.6, min_size=15)
-    # rnaplfold_intervals = get_rnaplfold_intervals("RNAplfold/SARSCOV2_lunp")
+    unpaired_intervals = get_unpaired_intervals(per_position_unpaired, unpaired_cutoff=MIN_UNPAIRED, min_size=MIN_SIZE)
     rnaplfold_unpaired_probabilities = get_rnaplfold_per_position_unpaired("RNAplfold/SARSCOV2_lunp")
-    rnaplfold_intervals = get_unpaired_intervals(rnaplfold_unpaired_probabilities, unpaired_cutoff=0.6, min_size=15)
+    rnaplfold_intervals = get_unpaired_intervals(rnaplfold_unpaired_probabilities, unpaired_cutoff=MIN_UNPAIRED, min_size=MIN_SIZE)
     overlap_intervals = get_interval_overlap_size(unpaired_intervals, rnaplfold_intervals, min_size=5)
-    print("%d/%d intervals overlap with RNAplfold" % (len(overlap_intervals), len(unpaired_intervals)))
-    num_overlaps = get_num_overlaps_rnd_trials_size(unpaired_intervals, rnaplfold_intervals, len(ref_seq), min_size=5)
-    print("P-value for overlap: %.2E\n" % (np.sum(np.array(num_overlaps) >= len(overlap_intervals))/len(num_overlaps)))
+    print("%d/%d Contrafold 2.0 intervals overlap with RNAplfold" % (len(overlap_intervals), len(unpaired_intervals)))
+    if do_significance_tests:
+        num_overlaps = get_num_overlaps_rnd_trials_size(unpaired_intervals, rnaplfold_intervals, len(ref_seq), min_size=5)
+        print("P-value for overlap: %.2E\n" % (np.sum(np.array(num_overlaps) >= len(overlap_intervals))/len(num_overlaps)))
     overlap_intervals = get_interval_overlap_size(rnaplfold_intervals, unpaired_intervals, min_size=5)
-    print("%d/%d intervals overlap with contrafold2" % (len(overlap_intervals), len(rnaplfold_intervals)))
-    num_overlaps = get_num_overlaps_rnd_trials_size(rnaplfold_intervals, unpaired_intervals, len(ref_seq), min_size=5)
-    print("P-value for overlap: %.2E\n" % (np.sum(np.array(num_overlaps) >= len(overlap_intervals))/len(num_overlaps)))
+    print("%d/%d RNAplfold intervals overlap with Contrafold 2.0" % (len(overlap_intervals), len(rnaplfold_intervals)))
+    if do_significance_tests:
+        num_overlaps = get_num_overlaps_rnd_trials_size(rnaplfold_intervals, unpaired_intervals, len(ref_seq), min_size=5)
+        print("P-value for overlap: %.2E\n" % (np.sum(np.array(num_overlaps) >= len(overlap_intervals))/len(num_overlaps)))
     
     print("Recording RNAplfold intervals that overlap with Contrafold 2.0 intervals")
     write_rnaplfold_intervals(overlap_intervals)

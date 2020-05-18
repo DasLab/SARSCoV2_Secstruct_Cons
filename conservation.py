@@ -4,16 +4,35 @@
 from sarscov2_util import *
 from matplotlib import pyplot as plt
 from scipy import stats
+import argparse
 
+
+parser = argparse.ArgumentParser(description='Get conserved intervals, MEA structures around conserved intervals, and run relevant significance tests. Output file results/sars_related_conserved.csv has intervals conserved in SARS-related sequences and SARS-CoV-2 sequences to the desired conservation level. Output files results/conserved_intervals... have SARS-related conserved interval sequences, and results/intervals...bed has SARS-related conserved interval positions.')
+parser.add_argument('--sarsr_aln_file', default='alignments/RR_nCov_alignment2_021120_muscle.fa', help="Alignment file for SARS-related sequences in fasta format")
+parser.add_argument('--sarsr_aln_tag', default='RR_nCov_alignment2_021120_muscle', help="Tag for labeling results files for SARS-related conserved intervals")
+parser.add_argument('--sarscov2_aln_file', default='alignments/gisaid_mafft_ncbi.fa', help="Alignment file for SARS-CoV-2 sequences in fasta format")
+parser.add_argument('--min_len', type=int, default=15, help="Minimum length of reported conserved intervals")
+parser.add_argument('--sarsr_conservation', type=float, default=1, help="Required conservation level for intervals in SARS-related sequences (float from 0 to 1)")
+parser.add_argument('--sarscov2_conservation', type=float, default=0.99, help="Required conservation level for intervals in SARS-CoV-2 sequences (float from 0 to 1)")
+parser.add_argument('--do_significance_tests', dest='do_significance_tests', action='store_true', help="If specified, will do significance tests for the overlap of SARS-related conserved intervals and SARS-CoV-2 conserved intervals")
+parser.set_defaults(do_significance_tests=False)
+args = parser.parse_args()
 
 # ## SARS-related alignment analysis
 
 # Alignment files: 
-aln_file_1 = 'alignments/RR_nCov_alignment2_021120_muscle.fa'
+aln_file_1 = args.sarsr_aln_file
 aln_file_2 = 'alignments/blast_alignment.fa'
 aln_file_3 = 'alignments/BetaCov_comp_c990_full_nopA_clustalo_021920.fa'
-aln_tag_1 = 'RR_nCov_alignment2_021120_muscle'
+aln_tag_1 = args.sarsr_aln_tag
 
+sarscov2_aln_file1 = args.sarscov2_aln_file
+sarscov2_aln_file2 = "alignments/gisaid_mafft_ncbi.fa"
+
+MIN_SIZE = args.min_len
+SARSR_CONSERVATION = args.sarsr_conservation
+SARSCOV2_CONSERVATION = args.sarscov2_conservation
+do_significance_tests = args.do_significance_tests
 
 def print_conservation_datasets(aln_vals, ref_seq, all_intervals, aln_tag):
     # Print out the reference sequence
@@ -59,8 +78,8 @@ def print_conservation_datasets(aln_vals, ref_seq, all_intervals, aln_tag):
 
 
 
-def get_structured_region_overlap_pval(aln_filename):
-    intervals = get_ref_intervals_from_file(aln_filename, cutoff=1, MIN_SIZE=15)
+def get_structured_region_overlap_pval(aln_filename, cutoff, min_size):
+    intervals = get_ref_intervals_from_file(aln_filename, cutoff=cutoff, MIN_SIZE=min_size)
     for region_key in regions.keys():
         region = regions[region_key]
         if get_interval_overlap_single(region, intervals):
@@ -72,13 +91,13 @@ def get_structured_region_overlap_pval(aln_filename):
 
 # ## SARS-CoV-2 alignment analysis
 
-def get_sarsr_sarscov2_conserved_intervals(sarsr_aln_file, sarscov2_aln_file):
+def get_sarsr_sarscov2_conserved_intervals(sarsr_aln_file, sarscov2_aln_file, sarsr_cutoff, sarscov2_cutoff, min_size):
     sequences = get_sequences(sarscov2_aln_file)
     aln_counts = get_sequence_logo(sequences)
     (full_ref_seq, refseq) = get_ref_seq(sequences)
     aln_vals = get_aln_percs(aln_counts, full_ref_seq)
 
-    intervals = get_ref_intervals_from_file(sarsr_aln_file, cutoff=1, MIN_SIZE=15)
+    intervals = get_ref_intervals_from_file(sarsr_aln_file, cutoff=sarsr_cutoff, MIN_SIZE=min_size)
     min_cons = []
     mean_cons = []
     interval_data = []
@@ -86,13 +105,14 @@ def get_sarsr_sarscov2_conserved_intervals(sarsr_aln_file, sarscov2_aln_file):
         cur_min_cons = min(aln_vals[interval[0]:interval[1]])
         min_cons += [cur_min_cons]
         mean_cons += [np.mean(np.array(aln_vals[interval[0]:interval[1]]))]
-        if cur_min_cons > 0.99:
+        if cur_min_cons > sarscov2_cutoff:
             interval_data += [(interval[0], interval[1], cur_min_cons)]
     return (interval_data, intervals, min_cons, mean_cons, aln_vals, refseq)
 
-
-def sarsr_sarscov2_rnd_trials(sarsr_aln_file, sarscov2_aln_file):
-    (interval_data, intervals, min_cons, mean_cons, aln_vals, refseq) = get_sarsr_sarscov2_conserved_intervals(sarsr_aln_file, sarscov2_aln_file)
+def sarsr_sarscov2_rnd_trials(sarsr_aln_file, sarscov2_aln_file, sarsr_cutoff, sarscov2_cutoff, min_size):
+    (_, intervals, min_cons, mean_cons, aln_vals, refseq) = \
+        get_sarsr_sarscov2_conserved_intervals(sarsr_aln_file, sarscov2_aln_file, \
+            sarsr_cutoff, sarscov2_cutoff, min_size)
 
     rnd_min_cons = []
     rnd_mean_cons = []
@@ -106,7 +126,7 @@ def sarsr_sarscov2_rnd_trials(sarsr_aln_file, sarscov2_aln_file):
             end_idx = start_idx + length
             rnd_min_cons += [min(aln_vals[start_idx:end_idx])]
             rnd_mean_cons += [np.mean(np.array(aln_vals[start_idx:end_idx]))]
-        if np.sum(np.array(mean_cons) > 0.99) > np.sum(np.array(rnd_mean_cons) > 0.99):
+        if np.sum(np.array(mean_cons) > sarscov2_cutoff) > np.sum(np.array(rnd_mean_cons) > sarscov2_cutoff):
             num_cons_wins += 1
     print("Number of trials with more SARSr conserved intervals 99%% conserved than random intervals: %d/10000" % num_cons_wins)
     print("Binomial test p-value for this difference: %.2E" % stats.binom_test(num_cons_wins, 10000))
@@ -120,38 +140,32 @@ if __name__ == '__main__':
     bcov_aln_counts = get_sequence_logo(sequences)
     (full_ref_seq, ref_seq) = get_ref_seq(sequences)
     aln_vals = get_aln_percs(bcov_aln_counts, full_ref_seq)
-    ref_intervals = get_intervals_refseq(bcov_aln_counts, full_ref_seq, sequences, cutoff=1, MIN_SIZE=15)
+    ref_intervals = get_intervals_refseq(bcov_aln_counts, full_ref_seq, sequences, \
+        cutoff=SARSR_CONSERVATION, MIN_SIZE=MIN_SIZE)
 
 
     all_intervals = get_all_secstructs_mea(ref_intervals, ref_seq, secstruct_interval=20)
     print("Printing SARSr conservation intervals, sequence conservation percentages, and MEA structure predictions")
     print_conservation_datasets(aln_vals, ref_seq, all_intervals, aln_tag_1)
 
-    print("Structured regions that overlap with SARSr-conserved regions")
-    get_structured_region_overlap_pval(aln_file_1)
+    if do_significance_tests:
+        print("Structured regions that overlap with SARSr-conserved regions")
+        get_structured_region_overlap_pval(aln_file_1, SARSR_CONSERVATION, MIN_SIZE)
 
-    print("Comparing SARSr sequence conservation in SARS-CoV-2 to random sequences using alignment: ")
-    print("NCBI")
-    sarsr_sarscov2_rnd_trials(aln_file_1, "alignments/ncbi_sarscov2_031920.fa")
-    print("GSAID")
-    sarsr_sarscov2_rnd_trials(aln_file_1, "alignments/gisaid_mafft_ncbi.fa")
+        print("Comparing SARSr sequence conservation in SARS-CoV-2 to random sequences using alignment: ")
+        print("NCBI")
+        sarsr_sarscov2_rnd_trials(aln_file_1, sarscov2_aln_file1, \
+            SARSR_CONSERVATION, SARSCOV2_CONSERVATION, MIN_SIZE)
+        print("GSAID")
+        sarsr_sarscov2_rnd_trials(aln_file_1, sarscov2_aln_file2, \
+            SARSR_CONSERVATION, SARSCOV2_CONSERVATION, MIN_SIZE)
 
 
     # Record SARS-related, SARS-CoV-2 conserved sequences
     print("Recording SARS-related, SARS-CoV-2 conserved sequences")
     (interval_data, intervals, min_cons, mean_cons, aln_vals, refseq) = \
-        get_sarsr_sarscov2_conserved_intervals(aln_file_1, "alignments/gisaid_mafft_ncbi.fa")
-
-    min_cons = []
-    mean_cons = []
-    interval_data = []
-    for interval in intervals:
-        cur_min_cons = min(aln_vals[interval[0]:interval[1]])
-        min_cons += [cur_min_cons]
-        cur_mean_cons = np.mean(np.array(aln_vals[interval[0]:interval[1]]))
-        if cur_min_cons > 0.99:
-            interval_data += [(interval[0], interval[1],  cur_min_cons)]
-        mean_cons += [cur_mean_cons]
+        get_sarsr_sarscov2_conserved_intervals(aln_file_1, sarscov2_aln_file2, \
+            SARSR_CONSERVATION, SARSCOV2_CONSERVATION, MIN_SIZE)
 
     interval_data = np.array(interval_data)
     idxs = np.argsort(np.array([x[2] for x in interval_data]))
