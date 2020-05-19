@@ -7,7 +7,7 @@ from scipy import stats
 import argparse
 
 
-parser = argparse.ArgumentParser(description='Get conserved intervals, MEA structures around conserved intervals, and run relevant significance tests. Output file results/sars_related_conserved.csv has intervals conserved in SARS-related sequences and SARS-CoV-2 sequences to the desired conservation level. Output files results/conserved_intervals... have SARS-related conserved interval sequences, and results/intervals...bed has SARS-related conserved interval positions.')
+parser = argparse.ArgumentParser(description='Get conserved intervals, MEA structures around conserved intervals, and run relevant significance tests. Output file results/sars_related_conserved.csv has intervals conserved in SARS-related sequences and SARS-CoV-2 sequences to the desired conservation level. Output files results/conserved_intervals... have SARS-related conserved interval sequences, and results/intervals...bed has SARS-related conserved interval positions. Output file perc_conserved... has percentage conservation values at each genomic posiiton.')
 parser.add_argument('--sarsr_aln_file', default='alignments/RR_nCov_alignment2_021120_muscle.fa', help="Alignment file for SARS-related sequences in fasta format")
 parser.add_argument('--sarsr_aln_tag', default='RR_nCov_alignment2_021120_muscle', help="Tag for labeling results files for SARS-related conserved intervals")
 parser.add_argument('--sarscov2_aln_file', default='alignments/gisaid_mafft_ncbi.fa', help="Alignment file for SARS-CoV-2 sequences in fasta format")
@@ -42,14 +42,9 @@ def print_conservation_datasets(aln_vals, ref_seq, all_intervals, aln_tag):
 
     # Print intervals in rank order of MCC secondary structure predictions
     f = open('results/intervals_full_' + aln_tag + '.csv', 'w')
+    f.write('%s,%s,%s,%s,%s,%s\n' % ('Conserved interval start (extended secondary structure region)', 'conserved interval end (extended secondary structure region)', 'interval sequence (extended secondary structure region)', 'MEA secondary structure', 'interval sequence', 'Matthews Correlation Coefficient'))
     for interval in all_intervals:
-        f.write('%d,%d,%s,%s,%s,%f\n' % (interval.int_start - 19,interval.int_end + 20, interval.full_seq.replace('T', 'U'),                                      interval.secstruct, interval.seq, interval.mcc))
-    f.close()
-
-    # Print intervals in rank order of MCC secondary structure predictions, various formats
-    f = open('results/intervals_full_' + aln_tag + '.csv', 'w')
-    for interval in all_intervals:
-        f.write('%d,%d,%s,%s,%s,%f\n' % (interval.int_start - 19,interval.int_end + 20, interval.full_seq.replace('T', 'U'),                                      interval.secstruct, interval.seq, interval.mcc))
+        f.write('%d,%d,%s,%s,%s,%f\n' % (interval.int_start - 19,interval.int_end + 20, interval.full_seq.replace('T', 'U'), interval.secstruct, interval.seq, interval.mcc))
     f.close()
 
     f = open('results/intervals_full_' + aln_tag + '.txt', 'w')

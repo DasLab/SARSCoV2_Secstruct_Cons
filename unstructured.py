@@ -87,6 +87,7 @@ def write_unpaired_betacov(per_position_unpaired, ref_seq):
     top_overlaps = overlap_intervals[np.argsort(p_vals)[::-1]]
     csv_file = 'results/unpaired_betacov_overlaps.csv'
     f = open(csv_file, 'w')
+    f.write('%s,%s,%s,%s,%s\n' % ("Start index", "end index", "average unpaired probability in interval", "minimum unpaired probability in interval", "interval sequence"))
     for x in top_overlaps:
         f.write('%d,%d,%f,%f,%s\n' % (int(x[0]), int(x[1]-1), float(x[2]), float(x[3]), ref_seq[(int(x[0])-1):int(x[1]-1)]))
     f.close()
@@ -102,6 +103,7 @@ def write_unpaired_sarscov2(per_position_unpaired, ref_seq):
     top_overlaps = overlap_intervals[np.argsort(p_vals)[::-1]]
     csv_file = 'results/sarscov2_conserved_unstructured.csv'
     f = open(csv_file, 'w')
+    f.write('%s,%s,%s,%s,%s\n' % ("Start index", "end index", "average unpaired probability in interval", "minimum unpaired probability in interval", "interval sequence"))
     for ii, x in enumerate(top_overlaps):
         f.write('SARS-CoV-2-conserved-unstructured-%d,%d-%d,%f,%f,%s\n' % (ii+1,int(x[0]), int(x[1]-1), float(x[2]), float(x[3]), ref_seq[(int(x[0])-1):int(x[1]-1)]))
     f.close()
@@ -115,6 +117,7 @@ def write_unpaired_intervals(unpaired_intervals):
 
 def write_rnaplfold_intervals(intervals):
     f = open('results/rnaplfold_intervals.csv', 'w')
+    f.write('%s,%s\n' % ("Start index", "end index"))
     for interval in intervals:
         f.write("%d, %d\n" % (interval[0], interval[1]))
     f.close()
