@@ -31,3 +31,6 @@ python packages in (`pip install requirements.txt`):
 External Daslab dependencies:
 * arnie
 * Contrafold 2.0 is used for secondary structure calculations
+
+External packages: 
+* R-scape v1.4.0
